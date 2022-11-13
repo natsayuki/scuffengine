@@ -33,8 +33,9 @@ engine.onKeyDown('e', function() {
   engine.mainPlayer.rotateRight(3);
 });
 
-engine.addWall(new Wall(5, 5, 100, 10, 'black', 10));
-engine.addWall(new Wall(3, 10, 30, 90, 'blue', 10));
-engine.addWall(new Wall(85, 13, 70, 80, 'green', 1));
+engine.addWall(new Wall(5, 5, 100, 10, 'black', 10, undefined, {}));
+engine.addWall(new Wall(3, 10, 30, 90, 'blue', 10, undefined, {}));
+engine.addWall(new Wall(85, 13, 70, 80, 'green', 1, undefined, {}));
+engine.addWall(new Wall(100, 100, 150, 100, 'yellow', 10, 'textures/scott.jpg', {type: 'fit'}));
 
 engine.start();

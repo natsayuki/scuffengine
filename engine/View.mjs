@@ -33,6 +33,11 @@ export class View {
             distance: Math.sqrt(((intersect.x - camera.x) ** 2) + ((intersect.y - camera.y) ** 2)) * Math.cos((ray.angle) * (Math.PI / 180)),
             color: wall.color,
             height: wall.height,
+            texture: wall.texture,
+            textureOptions: wall.textureOptions,
+            intersect: intersect,
+            wallStart: wall.start,
+            wallLength: wall.length,
           });
         });
 
@@ -49,12 +54,25 @@ export class View {
           let height = (((canvas.height / 2) - top) * 2) + (heightMultiplier * (10 - column.height))
           if(height < 0) height = 0;
 
-          context.beginPath();
-          context.fillStyle = column.color;
-          context.rect(left, top, width, height);
-          context.fill();
-          context.fillStyle = 'black';
-          context.closePath();
+          if(column.texture) {
+            const image = document.createElement('img');
+            image.src = column.texture;
+            if(column.textureOptions.type == 'view') {
+              context.drawImage(image, index, 0, 1, image.height, left, top, width, height)
+            } else if (column.textureOptions.type == 'fit') {
+              const distanceToIntersect = Math.sqrt(((column.intersect.x - column.wallStart.x) ** 2) + ((column.intersect.y - column.wallStart.y) ** 2));
+              const imagePercent = engine.scale(distanceToIntersect, 0, column.wallLength, 0, image.width);
+              context.drawImage(image, imagePercent, 0, 1, image.height, left, top, width, height)
+            }
+          }
+          else {
+            context.beginPath();
+            context.fillStyle = column.color;
+            context.rect(left, top, width, height);
+            context.fill();
+            context.fillStyle = 'black';
+            context.closePath();
+          }
         });
       });
 

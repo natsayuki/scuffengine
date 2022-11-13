@@ -7,11 +7,14 @@ export class Camera {
     this.x = params.x == undefined ? 5 : params.x;
     this.y = params.y == undefined ? 5 : params.y;
     this.rays = [];
+    this.floorRays = [];
 
     this.facing = 0;
 
     this.numRays = 320;
     this.fov = 90;
+
+    this.numFloorYRays = 240;
 
     this.view = new View();
   }

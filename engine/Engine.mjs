@@ -8,14 +8,23 @@ export class Engine {
     this.walls = [];
     this.cameras = [];
     this.players = [];
+    this.floors = [];
 
     this.mainPlayer = undefined;
 
     this.keyDownCallbacks = {};
   }
 
+  scale(num, inMin, inMax, outMin, outMax) {
+    return (num - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
+  }
+
   addWall(wall) {
     this.walls.push(wall);
+  }
+
+  addFloor(floor) {
+    this.floors.push(floor);
   }
 
   addPlayer(player) {
